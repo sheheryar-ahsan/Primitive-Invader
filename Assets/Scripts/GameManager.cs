@@ -19,6 +19,10 @@ public class GameManager : MonoBehaviour
     public GameObject mediumImage;
     public GameObject hardImage;
     public GameObject inGamePanel;
+
+    public GameObject pauseScreen;
+    private bool paused;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +36,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GamePause();
+        }
 
     }
     public void EasyDifficulty()
@@ -72,5 +80,20 @@ public class GameManager : MonoBehaviour
     {
         Kills += killToAdd;
         killText.text = "Kills: " + Kills;
+    }
+    private void GamePause()
+    {
+        if (!paused)
+        {
+            paused = true;
+            pauseScreen.SetActive(true);   
+            Time.timeScale = 0;
+        }
+        else
+        {
+            paused = false;
+            pauseScreen.SetActive(false);
+            Time.timeScale = 1;
+        }
     }
 }

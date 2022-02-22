@@ -48,17 +48,11 @@ public class WaveSystem : MonoBehaviour
     {
         if (GameObject.FindGameObjectWithTag("Enemy") == false && currentWave < totalWaves)
         {
-            //StartCoroutine(GettingReadyForNextWave());
-            Debug.Log("Wave created ");
+            //StartCoroutine(GeneratingPatteren());
             GeneratingPatteren();
             currentWave++;
             startTimer = true;
         }
-    }
-    IEnumerator GettingReadyForNextWave()
-    {
-        yield return new WaitForSeconds(1);
-        
     }
     private void GeneratingPatteren()
     {
@@ -71,9 +65,13 @@ public class WaveSystem : MonoBehaviour
             xLastPos = i * enemiesXOffset;
             for (int j = 0; j <= uBound1; j++)
             {
-                yLastPos = j * enemiesYOffset;
-                Vector2 enemyPos = new Vector2(i + xLastPos,j + yLastPos);
-                Instantiate(enemyPrefab, enemyPos, enemyPrefab.transform.rotation, transform);
+                int randomGenerator = Random.Range(0, 2);
+                if (randomGenerator == 0)
+                {
+                    yLastPos = j * enemiesYOffset;
+                    Vector2 enemyPos = new Vector2(i + xLastPos, j + yLastPos);
+                    Instantiate(enemyPrefab, enemyPos, enemyPrefab.transform.rotation, transform);
+                }
             }
         }
         WavePosition();
